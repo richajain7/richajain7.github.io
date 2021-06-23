@@ -7,7 +7,6 @@
 
 # Name of website
 title: Richa Jain
-#subtitle: student at umass amherst
 
 # Your name to show in the footer
 author: Richa Jain
@@ -17,7 +16,6 @@ author: Richa Jain
 navbar-links:
   About Me: "aboutme"
   Projects: ""
-  Home: "https://richajain.com"
 
 # --- Logo --- #
 
