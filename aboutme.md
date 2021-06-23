@@ -6,13 +6,17 @@ subtitle: About Me
 
 **Public Health and Mathematics Student at the University of Massachusetts Amherst**
 
-My name is Inigo Montoya. I have the following qualities:
+**Contact**
+* 508-904-1545
+* jainricha127@gmail.com
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+**Profiles**
+* [Resume](Resume_Richa_Jain.pdf)
 
-What else do you need?
+**Education**
+* BS Public Health (2022) UMass Amherst
+* BS Mathematic (2022) UMass Amherst
+* Minor Computer Science (2022) UMass Amherst
 
-### My story
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+
