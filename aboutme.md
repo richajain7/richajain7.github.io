@@ -1,7 +1,7 @@
 ---
 layout: page
-title: About Me
-subtitle: 
+title: 
+subtitle: About Me
 ---
 
 **Public Health and Mathematics Student at the University of Massachusetts Amherst**
