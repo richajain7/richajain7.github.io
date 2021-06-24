@@ -18,5 +18,13 @@ subtitle: About Me
 * BS Mathematics (2022) UMass Amherst
 * Minor Computer Science (2022) UMass Amherst
 
+**Skills**
+* R
+* SQL
+* SAS
+* Microsoft Excel 
+* Microsoft Power BI
+* Java
+
 
 
