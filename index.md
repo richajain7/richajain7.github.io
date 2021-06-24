@@ -3,8 +3,9 @@ layout: home
 title: Richa Jain
 subtitle: Student at UMass Amherst
 css: "/css/index.css"
-bigimg:
-  - "/assests/img/toronto_2018.JPG" : "Toronto 2018"
 ---
 
-
+**A little about me:**
+* I enjoy playing the guitar
+* I am passionate about learning about the United States healthcare system 
+* I love problem solving and am always open to a challenge
