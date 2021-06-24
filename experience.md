@@ -7,7 +7,7 @@ title: Experience
 >> Working on the Media & Experience team within Operational Analytics.
 
 2. Research Intern for Reich Lab at UMass Amherst (May 2021 - Present) 
->> Wokring on a research project that evaluates COVID-19 forecasts. 
+>> Working on a research project that evaluates COVID-19 forecasts. 
 
 3. Research Assistant for SPAH Lab at UMass Amherst (Jan 2020 - Present)
 >> Assist with designing and administering of experiments and online surveys.
