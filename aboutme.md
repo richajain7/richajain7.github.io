@@ -15,7 +15,7 @@ subtitle: About Me
 
 **Education**
 * BS Public Health (2022) UMass Amherst
-* BS Mathematic (2022) UMass Amherst
+* BS Mathematics (2022) UMass Amherst
 * Minor Computer Science (2022) UMass Amherst
 
 
