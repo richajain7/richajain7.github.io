@@ -25,6 +25,7 @@ subtitle: About Me
 * Microsoft Excel 
 * Microsoft Power BI
 * Java
+* STATA
 
 
 
