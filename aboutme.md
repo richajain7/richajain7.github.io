@@ -11,7 +11,7 @@ subtitle: About Me
 * jainricha127@gmail.com
 
 **Profiles**
-* [Resume](resume_richa_jain_2021.pdf)
+* [Resume]
 
 **Education**
 * BS Public Health (2022) UMass Amherst
