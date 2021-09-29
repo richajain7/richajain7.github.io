@@ -7,7 +7,7 @@ subtitle: About Me
 **Public Health and Mathematics Student at the University of Massachusetts Amherst**
 
 **Contact**
-* 508-904-1545
+* [number]
 * jainricha127@gmail.com
 
 **Profiles**
