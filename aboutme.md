@@ -7,7 +7,6 @@ subtitle: About Me
 **Public Health and Mathematics Student at the University of Massachusetts Amherst**
 
 **Contact**
-* [number]
 * jainricha127@gmail.com
 
 **Profiles**
