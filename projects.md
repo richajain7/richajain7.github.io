@@ -8,6 +8,8 @@ title: Projects
 2. [PH460: Opioid Crisis in the United States](PH460_Final_Project.pdf)
 3. [STAT525: Medical Insurance Costs](stat 525 presentation.pdf) 
 4. [STAT525: Medical Insurance Costs Report](IE 5 Final Richa.pdf)
+5. [STAT535: Movie Recommendation SVD and SGD](Movie Lab Final Presentation.pdf)
+6. [STAT535: Movie Recommendation Report](535_Final_Project_Report.pdf)
 
 **Research Projects**
 1. [Reich Lab: Model Evaluation](Final_Presentation.pdf)
