@@ -4,21 +4,19 @@ title:
 subtitle: About Me
 ---
 
-**Public Health and Mathematics Student at the University of Massachusetts Amherst**
+**Analyst Development Program @ Liberty Mutual Insurance**
 
 **Contact**
 * jainricha127@gmail.com
 
-**Profiles**
-* [Resume]
-
 **Education**
-* BS Public Health (2022) UMass Amherst
-* BS Mathematics (2022) UMass Amherst
-* Minor Computer Science (2022) UMass Amherst
+* BS Public Health UMass Amherst (May 2022)
+* BS Mathematics UMass Amherst (May 2022)
+* Minor Computer Science UMass Amherst (May 2022)
 
 **Skills**
 * R
+* Python
 * SQL
 * SAS
 * Microsoft Excel 
