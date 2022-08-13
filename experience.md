@@ -4,7 +4,7 @@ title: Experience
 ---
 
 **1. Analyst Development Program at Liberty Mutual Insurance (July 2022 - present)**
-  - I work with GRM in the ADP at Liberty. This is a one year rotational program for analysts. 
+  - I work in the ADP at Liberty. This is a one year rotational program for analysts. 
 
 **2. Analytics Intern at Liberty Mutual Insurance (May 2021 - August 2021)**
   - Worked on the Media & Experience team within Operational Analytics. I designed performance dashboards and helped increase efficiency. 
