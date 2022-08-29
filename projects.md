@@ -10,6 +10,8 @@ title: Projects
 4. [STAT525: Medical Insurance Costs Report](IE 5 Final Richa.pdf)
 5. [STAT535: Movie Recommendation SVD and SGD](Movie Lab Final Presentation.pdf)
 6. [STAT535: Movie Recommendation Report](535_Final_Project_Report.pdf)
+7. [PH494CI: Mental Health Among College Students](ph494 paper.docx)
+8. [PH494CI: Mental Health Among College Students Poster](Poster for Capstone Project - Final Draft.pptx)
 
 **Research Projects**
 1. [Reich Lab: Model Evaluation](Final_Presentation.pdf)
