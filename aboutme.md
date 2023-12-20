@@ -23,6 +23,7 @@ subtitle:
 * Microsoft Power BI
 * Java
 * STATA
+* Docker
 
 
 
