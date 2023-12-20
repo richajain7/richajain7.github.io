@@ -1,8 +1,7 @@
 ---
 layout: home
 title: Richa Jain
-subtitle: Analyst Development Program @ Liberty Mutual Insurance
-subtitle: Graduate from UMass Amherst
+subtitle: Graduate Student at Harvard University
 css: "/css/index.css"
 ---
 
