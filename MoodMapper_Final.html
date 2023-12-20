@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Richa Jain">
+
+<title>moodmapper_final</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="MoodMapper_Final_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MoodMapper_Final_files/libs/quarto-html/quarto.js"></script>
+<script src="MoodMapper_Final_files/libs/quarto-html/popper.min.js"></script>
+<script src="MoodMapper_Final_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MoodMapper_Final_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MoodMapper_Final_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MoodMapper_Final_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MoodMapper_Final_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MoodMapper_Final_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MoodMapper_Final_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="mood-mapper" class="level1">
+<h1>Mood Mapper</h1>
+<p>(<strong>Note</strong>: Please note that this whole document takes approximately 1 hour to run.)</p>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">ABSTRACT</h2>
+<p>The aim of this project is to use term frequency-inverse document frequency (TF-IDF) and a random forest model to predict the sentiment of documents. This project uses a dataset found on Kaggle that includes a column ‘Description’ and a column ‘Mood.’ TF-IDF and random forest are used to train a model that will be able to use the description to predict the mood. The goal is to see how accurate this method is in predicting the same mood as in the actual dataset. This process ultimately revealed approximately a 45% accuracy, so TF-IDF and random forest may not be the best approach in predicting mood for the given descriptions.</p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">INTRODUCTION</h2>
+<p>The goal of this project is to determine the emotion of an individual based on a short description. In the dataset, descriptions are of varying lengths and the associated emotion is one of the following: sadness, anger, love, surprise, fear, or joy.</p>
+<p>The approach taken to generate these predictions was term frequency-inverse document frequency (TF-IDF) and random forest modeling. TF-IDF is a common natural language processing method that determines the importance of words or phrases in a document. In machine learning, this ‘document’ is called a corpus. The term frequency part looks at the frequency of terms. It is used to determine the number of times a specific words appears in the document. The inverse document frequency part determines how common each word is in the corpus.</p>
+<p>Term frequency-inverse document frequency (TF-IDF) is used to measure the importance of words in a document. This goes through all the words that are seen in the Description column and creates a whole column for each and every word. It then gives a 1 or 0 for whether that word occurs in the Description for that row or not, respectively.</p>
+<p>A random forest model is a common machine learning algorithm. It is made up of multiple decision trees that can be used for classification in order to determine what group our observation belongs to. For the purpose of this project, we use random forest to determine what mood/emotion our description belongs to. The random forest algorithm grows multiple trees that are ultimately merged to get a final prediction value.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">METHODS</h2>
+<p><strong>Data</strong>: Link to dataset: <a href="https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp/data">Kaggle Emotions Dataset</a> The dataset includes a column for ‘Description’ and a column for ‘Mood.’ Kaggle also includes a train.txt file for training the model and a test.txt file for testing the model. Kaggle describes the data as a collection of documents and its associated emotions.</p>
+<p>The initial part of this project is to load the libraries, read in the data, and format it. A critical piece is to label each mood with a numeric value from 1-6 in order to generate a numeric prediction from the random forest model.</p>
+<p>Sadness: 1 Anger: 2 Love: 3 Surprise: 4 Fear: 5 Joy: 6</p>
+<p>In order to get the data in a usable format, it is necessary to perform some text mining by converting the data to lowercase, removing stop words, removing punctation, etc. Then, using library tm, R should be able to create the TF-IDF matrix. It results in a table that has a column for each word that occurs in the description column of the original dataset. It then has a 0 or 1 for whether that row (that observation) has that word in it’s description or not.</p>
+<p>An important thing to note for this specific project is that the TF-IDF did not work with the random forest model. It came across an error of the variable/column being “incorrect.” According to Stack Overflow, a solution to this problem is to change the names of each column and append something like “_c” to the end.</p>
+<p>The next step in this process was to determine the number of trees for the random forest model. By default, the number of trees a random forest model uses in R is 500. This can result in a very long runtime especially if you have a large dataset. There are two solutions for this: (1) Use the ‘ranger’ library which is a fast implementation of random forests. It uses parallel processing to increase the training speed of the model. (2) An additional solution is to test create a sequence of difference values to test for the number of trees and create a plot of accuracy vs.&nbsp;trees. For accuracy, 1-OOB will provide a sufficient estimate. For this specific model, the number of trees used was 150, as the accuracy plateau’s out around 120 trees.</p>
+<p>(<strong>Note</strong>: This part takes about 20 minutes to run)</p>
+<p>An important measure is out of bag error that is used to estimate the performance of a random forest model. Within each tree, the “out of bag” observations are used as the test to evaluate the tree. Out of bag means the observations not used for that tree. At the end, all the predictions on the out of bag observations of the trees are aggregated to give an estimate of the performance. In general, you want a small out of bag error because that means the model is making accurate predictions. Out of bag error is also 1-accuracy so 1-OOB gives us the accuracy.</p>
+<section id="load-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="load-libraries">Load libraries</h4>
+</section>
+<section id="read-in-data-and-adjust" class="level4">
+<h4 class="anchored" data-anchor-id="read-in-data-and-adjust">Read in data and adjust</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                   Description
+1                                                                                      i didnt feel humiliated
+2 i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake
+3                                                             im grabbing a minute to post i feel greedy wrong
+4                 i am ever feeling nostalgic about the fireplace i will know that it is still on the property
+5                                                                                         i am feeling grouchy
+6                                            ive been feeling a little burdened lately wasnt sure why that was
+     Mood label
+1 sadness     1
+2 sadness     1
+3   anger     2
+4    love     3
+5   anger     2
+6 sadness     1</code></pre>
+</div>
+</div>
+</section>
+<section id="preprocessing" class="level4">
+<h4 class="anchored" data-anchor-id="preprocessing">Preprocessing</h4>
+</section>
+<section id="create-tf-idf" class="level4">
+<h4 class="anchored" data-anchor-id="create-tf-idf">Create TF-IDF</h4>
+</section>
+<section id="convert-to-df-and-add-in-dependent-variable" class="level4">
+<h4 class="anchored" data-anchor-id="convert-to-df-and-add-in-dependent-variable">Convert to df and add in dependent variable</h4>
+</section>
+<section id="train-random-forest-model-for-multiple-trees" class="level4">
+<h4 class="anchored" data-anchor-id="train-random-forest-model-for-multiple-trees">Train Random Forest model for multiple trees</h4>
+</section>
+<section id="plot-accuracy" class="level4">
+<h4 class="anchored" data-anchor-id="plot-accuracy">Plot accuracy</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="MoodMapper_Final_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Max Accuracy: "</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8840625</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">EVALUATION</h2>
+<p>The next step for this project was to build the model with the right number of trees, generate the predictions on the test set, and then evaluate the model.</p>
+<p>This model uses num.trees = 150 and runs ranger on the TF-IDF dataset where the label (emotion) is the dependent variable being predicted. Once the model is trained, the test dataset needs to be read in and formatted similarly to the training dataset. Once the test data is formatted correctly, the values of the emotions can be predicted using the trained model. Ranger returns multiple predictions per tree so the best solution to combine these values was to choose the most occurring prediction as the overall prediction.</p>
+<p>(<strong>Note</strong>: This part takes about 8 minutes to run)</p>
+<section id="train-random-forest-model-for-best-ntree" class="level4">
+<h4 class="anchored" data-anchor-id="train-random-forest-model-for-best-ntree">Train Random Forest model for best ntree</h4>
+</section>
+<section id="generate-predictions-on-test-data" class="level4">
+<h4 class="anchored" data-anchor-id="generate-predictions-on-test-data">Generate predictions on test data</h4>
+</section>
+<section id="predictions-as-part-of-test-data" class="level4">
+<h4 class="anchored" data-anchor-id="predictions-as-part-of-test-data">Predictions as part of test data</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                        Description
+1                                                       im feeling rather rotten so im not very ambitious right now
+2                                                                         im updating my blog because i feel shitty
+3                 i never make her separate from me because i don t ever want her to feel like i m ashamed with her
+4 i left with my bouquet of red and yellow tulips under my arm feeling slightly more optimistic than when i arrived
+5                                                                   i was feeling a little vain when i did this one
+6                                                i cant walk into a shop anywhere where i do not feel uncomfortable
+     Mood label predictions
+1 sadness     1           1
+2 sadness     1           1
+3 sadness     1           1
+4     joy     6           5
+5 sadness     1           1
+6    fear     5           2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="results-and-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-conclusion">RESULTS and CONCLUSION</h2>
+<p>The final step is to check the accuracy of the model. One method is to generate a confusion matrix to measure the performance of the model. A confusion matrix tells use the number of true positives, true negatives, false positives, and false negatives. The one generated by this model shows that emotions 1 and 2 have the most accurate predictions. It also tells us that the accuracy is approximately 45% which is low, but it makes sense since the model has six different emotions that it is trying to predict. The confusion matrix also shows us that emotion 1 has high sensitivity (true positives) and emotion 6 has high specificity (true negatives). The model does a relatively good job for these two emotions which is something we will explore further.</p>
+<section id="check-model-accuracy-using-confusion-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="check-model-accuracy-using-confusion-matrix">Check model accuracy using confusion matrix</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   1   2   3   4   5   6
+         1 538  42  21   7  33  54
+         2  20 209  51  24  61  96
+         3   7   6  58  10  68 135
+         4   4   2  10  16  53 181
+         5   6  12  16   5   9 163
+         6   6   4   3   4   0  66
+
+Overall Statistics
+                                         
+               Accuracy : 0.448          
+                 95% CI : (0.426, 0.4701)
+    No Information Rate : 0.3475         
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
+                                         
+                  Kappa : 0.3313         
+                                         
+ Mcnemar's Test P-Value : &lt; 2.2e-16      
+
+Statistics by Class:
+
+                     Class: 1 Class: 2 Class: 3 Class: 4 Class: 5 Class: 6
+Sensitivity            0.9260   0.7600   0.3648  0.24242  0.04018  0.09496
+Specificity            0.8894   0.8539   0.8772  0.87073  0.88626  0.98697
+Pos Pred Value         0.7741   0.4534   0.2042  0.06015  0.04265  0.79518
+Neg Pred Value         0.9670   0.9571   0.9411  0.97116  0.87982  0.67188
+Prevalence             0.2905   0.1375   0.0795  0.03300  0.11200  0.34750
+Detection Rate         0.2690   0.1045   0.0290  0.00800  0.00450  0.03300
+Detection Prevalence   0.3475   0.2305   0.1420  0.13300  0.10550  0.04150
+Balanced Accuracy      0.9077   0.8070   0.6210  0.55658  0.46322  0.54097</code></pre>
+</div>
+</div>
+</section>
+<section id="check-model-accuracy-using-oob" class="level4">
+<h4 class="anchored" data-anchor-id="check-model-accuracy-using-oob">Check model accuracy using OOB</h4>
+<p>Since the out of bag error is low at 0.11975, our random forest model did well. Out of bag tells us about the performance of our model. Something important to note about OOB is that there is research that shows that OOB may over- or underestimate if the sample has a large number of predictor variables. Here, we have many so this could be an underestimate.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.11975</code></pre>
+</div>
+</div>
+</section>
+<section id="check-model-importance-to-see-which-words-are-most-important" class="level4">
+<h4 class="anchored" data-anchor-id="check-model-importance-to-see-which-words-are-most-important">Check model importance to see which words are most important</h4>
+<p>This is something that could be used for further analysis. In a future version of a project like this, we could determine which features are most important and use those only to build our model. Some features have close to 0 importance meaning they contribute almost nothing to the structure of the model.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Showing the first 10:"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Importance
+feel_c        0.013025606
+feeling_c     0.011067268
+strange_c     0.006935839
+overwhelmed_c 0.005840277
+amazed_c      0.005738121
+weird_c       0.005355819
+impressed_c   0.005160149
+terrified_c   0.004971309
+shaken_c      0.004804643
+irritable_c   0.004785002</code></pre>
+</div>
+</div>
+</section>
+<section id="eda" class="level4">
+<h4 class="anchored" data-anchor-id="eda">EDA</h4>
+<p>As mentioned earlier, the sensitivity for emotion 1 was high and the specificity for emotion 6 was high. In order to understand the distribution of the emotions better, it was important to look at histograms and understand the samples. It seems like the sample size for emotion 1 and emotion 6 was significantly higher than the sample size for the other four emotions. Even though emotion 6 has low sensitivity, this could partially explain why these two emotions had better success than the others.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="MoodMapper_Final_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="MoodMapper_Final_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="future-opportunities" class="level2">
+<h2 class="anchored" data-anchor-id="future-opportunities">Future Opportunities</h2>
+<p>This project ran a random forest on the entire dataset and on every word in TF-IDF. Some opportunities for the future of this project would be to run it on less words and to try a different model.</p>
+<section id="lda-and-regression" class="level4">
+<h4 class="anchored" data-anchor-id="lda-and-regression">LDA and Regression</h4>
+<p>There is a concept called Latent Dirichlet Allocation (LDA) which is a statistical model using for unsupervised classification of documents. In LDA, you have a document (like our description column) made up of multiple words and a topic it belongs to (like our emotion/mood column). LDA helps us figure out which topic the document belongs to. In the case of this analysis, it would tell us which emotion/mood our description is related to. This is an interesting approach to this problem and could be a better way to predict the mood of individual responses. In a way, this is similar to TF-IDF but it would help us eliminate even more words and create a better correlation between descriptions and moods.</p>
+<p>Another approach is to use the TF-IDF that was created but look at the counts of each word that occurs (row) and see which ones occur very little. For example, if a word occurs once in the entire dataset, it most likely will have little to no value on the ultimate prediction of the model. By getting rid of ineffective words, we can reduce our dataset and run a potentially more accurate model. One option for a new model is a multi-linear regression.</p>
+</section>
+<section id="references" class="level4">
+<h4 class="anchored" data-anchor-id="references">References</h4>
+<ul>
+<li><a href="https://stackoverflow.com/questions/49588089/error-in-r-error-in-model-frame-defaulttermsreformulateattributestermste">Random Forest Error</a></li>
+<li><a href="https://cran.r-project.org/web/packages/ranger/ranger.pdf">Ranger Documentation</a></li>
+<li><a href="https://www.capitalone.com/tech/machine-learning/understanding-tf-idf/">TF-IDF Explanation</a></li>
+<li><a href="https://www.ibm.com/topics/random-forest">Random Forest Explanation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Out-of-bag_error">Out of Bag Error</a></li>
+<li><a href="https://towardsdatascience.com/latent-dirichlet-allocation-lda-9d1cd064ffa2">LDA</a></li>
+</ul>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
