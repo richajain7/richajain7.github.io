@@ -14,7 +14,7 @@ title: Projects
 8. [PH494CI: Mental Health Among College Students Poster](Poster for Capstone Project - Final Draft.pptx)
 
 **Harvard University Course Projects**
-1. [BST260: MoodMapper](MoodMapper_Final.pdf)
+1. [BST260: MoodMapper](MoodMapper_Final.html)
 
 **Research Projects**
 1. [Reich Lab: Model Evaluation](Final_Presentation.pdf)
